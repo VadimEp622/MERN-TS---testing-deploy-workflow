@@ -1,0 +1,4 @@
+1. ✔ create new frontend react using vite, and import react-router v6.28 !!! (don't touch react-router v7 yet. one step at a time.) 
+2. ✔ make it SPA, add redux, and backend API
+3. ✔ make node.js express typescript swc backend 
+4. make backend have mongoose, and API endpoints
