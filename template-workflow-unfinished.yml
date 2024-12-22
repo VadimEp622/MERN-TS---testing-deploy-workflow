@@ -1,0 +1,62 @@
+# 1. Navigate to your GitHub repository.
+# 2. Create a .github/workflows directory if it doesn’t exist.
+# 3. Create a new file, e.g., deploy.yml, inside .github/workflows.
+
+
+name: Build and Deploy Backend
+
+on:
+  push:
+    branches:
+      - main # Trigger the workflow when changes are pushed to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # Use your app's Node.js version
+
+      # Step 3: Install dependencies and build the backend
+      - name: Install and Build Backend
+        working-directory: ./backend
+        run: |
+          npm install
+          npm run build # Assuming this compiles your TypeScript files to `dist`
+
+      # Step 4: Install and Build Frontend
+      - name: Install and Build Frontend
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run build # Assuming this builds your React app into `build`
+
+      # Step 5: Move the frontend build into the backend/public folder
+      - name: Move Frontend Build
+        run: mv ./frontend/build ./backend/public
+
+      # Step 6: Create the deploy folder
+      - name: Create Deploy Folder
+        run: |
+          mkdir backend-deploy
+          cp -r ./backend/dist ./backend-deploy/dist
+          cp -r ./backend/public ./backend-deploy/public
+          cp ./backend/package.json ./backend-deploy/package.json
+
+      # Step 7: Push to the deploy branch
+      - name: Push to Deploy Branch
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout -b deploy
+          git add backend-deploy
+          git commit -m "Deploy build"
+          git push origin deploy --force
