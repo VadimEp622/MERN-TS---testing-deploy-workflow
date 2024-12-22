@@ -13,5 +13,8 @@ yarn-error.log
 build/
 dist/
 
-
+# Ignore .swc experimental plugin
 .swc/
+
+# Ignore local server logs
+logs/
