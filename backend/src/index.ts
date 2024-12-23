@@ -9,6 +9,8 @@ import { logger } from "./services/logger.service.js";
 import { connectDB } from "./services/db.service.ts";
 import { appConfig } from "./config/app.config.ts";
 
+// TODO: add verification to appConfig's env vars, and shutdown if error/missing
+
 // ***************** Express App Config *****************
 const app = express();
 const server = http.createServer(app);
