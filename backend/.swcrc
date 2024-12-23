@@ -6,8 +6,7 @@
             "syntax": "typescript",
             "topLevelAwait": true
         },
-        "target": "esnext",
-        "baseUrl": "./",
+        "target": "es2022",
         "experimental": {
             "plugins": [
                 [
