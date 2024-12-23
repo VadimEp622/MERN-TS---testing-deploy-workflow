@@ -1,24 +1,17 @@
 {
+    "extends": "@tsconfig/node22/tsconfig.json",
     "compilerOptions": {
         "skipLibCheck": true,
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "target": "ESNext",
         "isolatedModules": true,
-        "esModuleInterop": true,
         "noEmit": true,
         "allowImportingTsExtensions": true,
-        "rootDir": "./",
+        "rootDir": "./src",
         "outDir": "./dist",
-        "lib": [
-            "esnext"
-        ],
         "types": [
-            "node"
+            "node",
+            "express"
         ],
-        "baseUrl": "./",
         "allowJs": true,
-        "strict": true
     },
     "include": [
         "src/**/*"
