@@ -1,10 +1,12 @@
+import { cleanEnv, str } from "envalid";
+
 function config() {
-  return {
-    NODE_ENV: process.env.NODE_ENV,
-    PORT: process.env.PORT,
-    DB_URL: process.env.DB_URL,
-    DB_NAME: process.env.DB_NAME,
-  };
+  return cleanEnv(process.env, {
+    PORT: str(),
+    DB_URL: str(),
+    DB_NAME: str(),
+    NODE_ENV: str({ choices: ["development", "production"] }),
+  });
 }
 
 export const appConfig = config();
