@@ -8,22 +8,18 @@
     "build": "swc src --out-dir dist",
     "build:ci": "tsc && npm run build",
     "build:watch": "swc src -w --out-dir dist",
-    "dev": "npm run build:ci && concurrently \"npm run build:watch\" \"nodemon --delay 2.5 --watch \"dist/**/*\" -e js dist/src/index.js\"",
-    "prod": "npm run build:ci && SET NODE_ENV=production&& concurrently \"npm run build:watch\" \"nodemon --delay 2.5 --watch \"dist/**/*\" -e js dist/src/index.js\"",
+    "nodemon:watch": "nodemon --delay 2.5 --watch \"dist/**/*\" -e js dist/src/index.js",
+    "dev": "npm run build:ci && dotenvx run -f .env.dev.local -- concurrently \"npm run build:watch\" \"npm run nodemon:watch\"",
+    "dev:live": "npm run build:ci && dotenvx run -f .env.dev.live -- concurrently \"npm run build:watch\" \"npm run nodemon:watch\"",
+    "prod": "npm run build:ci && dotenvx run -f .env.prod.local -- concurrently \"npm run build:watch\" \"npm run nodemon:watch\"",
+    "prod:live": "npm run build:ci && dotenvx run -f .env.prod.live -- concurrently \"npm run build:watch\" \"npm run nodemon:watch\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bcrypt": "^5.1.1",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
-    "date-fns-tz": "^3.2.0",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongoose": "^8.8.4",
-    "node-cache": "^5.1.2",
+    "@dotenvx/dotenvx": "^1.31.3",
     "@swc-node/register": "^1.10.9",
     "@swc/cli": "^0.5.2",
     "@swc/core": "^1.10.1",
@@ -43,6 +39,14 @@
     "@types/passport-jwt": "^4.0.1",
     "@types/qrcode": "^1.5.5",
     "@types/speakeasy": "^2.0.10",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "date-fns-tz": "^3.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.8.4",
+    "node-cache": "^5.1.2",
     "nodemon": "^3.1.7",
     "regenerator-runtime": "^0.14.1",
     "ts-node": "^10.9.2",
@@ -50,7 +54,7 @@
     "typescript": "^5.7.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7",
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "nodemon": "^3.1.7"
   }
 }

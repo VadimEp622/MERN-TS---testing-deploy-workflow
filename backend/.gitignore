@@ -8,6 +8,10 @@ yarn-error.log
 
 # Ignore environment files
 .env
+.env.dev.live
+.env.dev.local
+.env.prod.live
+.env.prod.local
 
 # Ignore build artifacts or any compiled files (if you use TypeScript or other compilers)
 build/
